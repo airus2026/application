@@ -386,7 +386,7 @@ button {
         <span class="error-message" id="satsNo-error">Only numbers allowed</span>
     </div>
 </div>
-</div>
+
 
 <div class="form-row">
     <div class="form-group">
@@ -956,7 +956,7 @@ button {
 </div>
 
 </div>
-
+</div>
 </div>
 
 <script >
@@ -1518,7 +1518,7 @@ function validateCurrentStep() {
 
 function nextStep() {
     // Allow proceeding from first step without full validation for demo purposes
-    if (currentStep === 0 || validateCurrentStep()) {
+    if (validateCurrentStep()) {
         if (currentStep < totalSteps - 1) {
             showStep(currentStep + 1);
         }
@@ -1542,7 +1542,7 @@ function collectFormData() {
         admissionNo: getFieldValue('admissionNo'),
         satsNo: getFieldValue('satsNo'),
         stream: getFieldValue('stream'),
-        medium: getFieldValue('medium'),
+        //medium: getFieldValue('medium'),
         section: getFieldValue('section'),
         reservation: getFieldValue('reservation'),
         
@@ -1755,6 +1755,9 @@ function getUploadedDocuments() {
         status: doc.file ? `${doc.file.name} (${Math.max(1, Math.round(doc.file.size / 1024))} KB)` : 'Not uploaded'
     }));
 }
+document.getElementById('admissionForm').reset();
+currentStep = 0;
+showStep(0);
 
 function addPdfSection(doc, title, entries, yPosition) {
     const pageWidth = doc.internal.pageSize.getWidth();
