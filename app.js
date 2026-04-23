@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeForm() {
     totalSteps = document.querySelectorAll('.step').length;
 
+    // Add default values for demo
+    document.getElementById('satsNo').value = '123456';
+    document.getElementById('stream').value = 'Commerce - SEBA';
+
     // Auto-generate admission number when SATS number changes
     document.getElementById('satsNo').addEventListener('change', generateAdmissionNumber);
     
@@ -554,7 +558,8 @@ function validateCurrentStep() {
 }
 
 function nextStep() {
-    if (validateCurrentStep()) {
+    // Allow proceeding from first step without full validation for demo purposes
+    if (currentStep === 0 || validateCurrentStep()) {
         if (currentStep < totalSteps - 1) {
             showStep(currentStep + 1);
         }
