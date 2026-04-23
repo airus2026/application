@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PUC Admission Form 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 5%, #2f5ea5 100%);
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.header {
+    background: linear-gradient(to right, #2f5ea5, #667eea);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px 10px 0 0;
+    margin-top: 10px;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.progress-bar {
+    display: flex;
+    justify-content: space-between;
+    background: #f0f0f0;
+    padding: 15px;
+    border-bottom: 2px solid #667eea;
+}
+
+.progress-step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+    border-radius: 5px;
+    position: relative;
+}
+
+.progress-step.active {
+    color: white;
+    background: #667eea;
+    transform: scale(1.05);
+}
+
+.progress-step.completed {
+    color: #4CAF50;
+    background: #e8f5e9;
+}
+
+.form-container {
+    padding: 30px;
+}
+
+.step {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.form-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 25px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row.full {
+    grid-template-columns: 1fr;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.required {
+    color: #e74c3c;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+}
+
+input:disabled {
+    background-color: #f5f5f5;
+    color: #666;
+    cursor: not-allowed;
+}
+
+input.invalid,
+select.invalid,
+textarea.invalid {
+    border: 2px solid #e74c3c !important;
+    background-color: #ffe6e6;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.checkbox-group label,
+.radio-group label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.checkbox-group input,
+.radio-group input {
+    margin-right: 8px;
+    width: auto;
+}
+
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: linear-gradient(to right, #667eea, #764ba2);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    display: none;
+}
+
+.success-message.show {
+    display: block;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 18px;
+    }
+    
+    .form-container {
+        padding: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .progress-bar {
+        padding: 10px;
+    }
+    
+    .progress-step {
+        font-size: 11px;
+        padding: 8px;
+    }
+    
+    .buttons {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        border-radius: 5px;
+    }
+    
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-title {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+    
+    label {
+        font-size: 13px;
+    }
+    
+    input, select, textarea {
+        padding: 10px;
+        font-size: 13px;
+    }
+    
+    .checkbox-group label,
+    .radio-group label {
+        margin-right: 15px;
+        font-size: 13px;
+    }
+}
+</style>
+
+<!-- jsPDF Library for PDF Generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="header">
+<h1>Sri Vidyalaya PU College</h1>
+<p>PUC Admission Form 2026 - Department of School Education, Pre-University</p>
+</div>
+
+<div class="container">
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar">
+    <div class="progress-step active" data-step="0">📋 Basic Info</div>
+    <div class="progress-step" data-step="1">👤 Personal</div>
+    <div class="progress-step" data-step="2">👨‍👩‍👧 Family</div>
+    <div class="progress-step" data-step="3">🏫 Academic</div>
+    <div class="progress-step" data-step="4">🎓 Course</div>
+    <div class="progress-step" data-step="5">✔️ Review</div>
+</div>
+
+<div class="form-container">
+
+<form id="admissionForm">
+
+<!-- STEP 0: BASIC INFO -->
+<div class="step active">
+<div class="form-title">Step 1: Basic Information</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Admission Number <span class="required">*</span></label>
+        <input type="text" id="admissionNo" placeholder="Auto-generated" disabled>
+        <span class="error-message" id="admissionNo-error"></span>
+    </div>
+    
+    <div class="form-group">
+        <label>Registration/SATS Number <span class="required">*</span></label>
+        <input type="text" id="satsNo" placeholder="Enter SATS number" pattern="[0-9]+" required>
+        <span class="error-message" id="satsNo-error">Only numbers allowed</span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Stream/Course <span class="required">*</span></label>
+        <select id="stream" required>
+            <option value="">Select Stream</option>
+            <option>Commerce - SEBA</option>
+            <option>Commerce - CEBA</option>
+        </select>
+        <span class="error-message" id="stream-error">Please select a stream</span>
+    </div>
+
+<div class="form-group" style="margin-top: 37.8px;">
+    <label>Medium: <b> ENGLISH</b></label>
+</div>
+    
+
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" disabled data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Next →</button>
+</div>
+</div>
+
+<!-- STEP 1: PERSONAL DETAILS -->
+<div class="step">
+<div class="form-title">Step 2: Personal Details</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Student Name (CAPITAL LETTERS ONLY) (AS PER AADHAR CARD) <span class="required">*</span></label>
+        <input type="text" id="studentName" placeholder="Enter full name in CAPITAL letters" pattern="[A-Z\s]+" required>
+        <span class="error-message" id="studentName-error">Use CAPITAL letters only</span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Date of Birth <span class="required">*</span></label>
+        <input type="date" id="dob" required>
+        <span class="error-message" id="dob-error">Please select a date</span>
+    </div>
+    
+    <div class="form-group">
+        <label>Gender <span class="required">*</span></label>
+        <select id="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+        <span class="error-message" id="gender-error">Please select gender</span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Place of Birth</label>
+        <input type="text" id="placeOfBirth" placeholder="Enter place of birth">
+    </div>
+    
+    <div class="form-group">
+        <label>State</label>
+        <input type="text" id="state" placeholder="Enter state">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>District</label>
+        <input type="text" id="district" placeholder="Enter district">
+    </div>
+    
+    <div class="form-group">
+        <label>Taluk</label>
+        <input type="text" id="taluk" placeholder="Enter taluk">
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Nationality <span class="required">*</span></label>
+        <select id="nationality" required>
+            <option value="">Select Nationality</option>
+            <option>Indian</option>
+            <option>Other</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Religion</label>
+        <select id="religion">
+            <option value="">Select Religion</option>
+            <option>Hindu</option>
+            <option>Muslim</option>
+            <option>Christian</option>
+            <option>Other</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Caste <span class="required">*</span></label>
+        <select id="caste" required>
+            <option value="">Select Caste</option>
+            <option>General</option>
+            <option>OBC</option>
+            <option>SC/ST</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Subcaste</label>
+        <input type="text" id="subcaste" placeholder="Enter subcaste">
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Next →</button>
+</div>
+</div>
+
+<!-- STEP 2: CONTACT & ADDRESS -->
+<div class="step">
+<div class="form-title">Step 3: Contact & Address Details</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Permanent Address <span class="required">*</span></label>
+        <textarea id="permanentAddress" placeholder="Enter complete permanent address" required></textarea>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Local Address</label>
+        <textarea id="localAddress" placeholder="Enter local address if different"></textarea>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Mobile Number <span class="required">*</span></label>
+        <input type="tel" id="mobile" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required>
+        <span class="error-message" id="mobile-error">Mobile must be 10 digits</span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" id="email" placeholder="Valid email address" required>
+        <span class="error-message" id="email-error">Invalid email address</span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Aadhaar Number</label>
+        <input type="text" id="aadhaar" placeholder="12-digit Aadhaar" pattern="[0-9]{12}" maxlength="12">
+        <span class="error-message" id="aadhaar-error"></span>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Aadhaar Document (PDF/Image) 📄</label>
+        <input type="file" id="aadhaarDocument" accept="image/*,.pdf">
+        <small style="color: #666; font-size: 12px;">Upload Aadhaar card image or PDF for verification</small>
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Next →</button>
+</div>
+</div>
+
+<!-- STEP 3: FAMILY DETAILS -->
+<div class="step">
+<div class="form-title">Step 4: Family Details</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Father's Name</label>
+        <input type="text" id="fatherName" placeholder="Enter father's name" pattern="[a-zA-Z\s]+">
+    </div>
+    
+    <div class="form-group">
+        <label>Mother's Name</label>
+        <input type="text" id="motherName" placeholder="Enter mother's name" pattern="[a-zA-Z\s]+">
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Parent/Guardian Address</label>
+        <textarea id="parentAddress" placeholder="Enter parent/guardian address"></textarea>
+    </div>
+</div>
+
+
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Parent's Annual Income</label>
+        <input type="number" id="income" placeholder="Enter annual income" min="0">
+    </div>
+    
+    <div class="form-group">
+        <label>Is Income Certificate Enclosed?</label>
+        <select id="incomeCertificate">
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Next →</button>
+</div>
+</div>
+
+<!-- STEP 4: ACADEMIC DETAILS -->
+<div class="step">
+<div class="form-title">Step 5: Academic Details</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Name & Address of School/College Last Studied <span class="required">*</span></label>
+        <textarea id="schoolName" placeholder="Enter school/college name and address" required></textarea>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Register Number <span class="required">*</span></label>
+        <input type="text" id="registerNo" placeholder="Enter register number" pattern="[0-9]+" required>
+    </div>
+    
+    <div class="form-group">
+        <label>Month/Year of Passing <span class="required">*</span></label>
+        <input type="month" id="passingMonth" required>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Board <span class="required">*</span></label>
+        <select id="board" required>
+            <option value="">Select Board</option>
+            <option>State Board</option>
+            <option>CBSE</option>
+            <option>ICSE</option>
+            <option>Other</option>
+        </select>
+        <small style="color: #666; font-size: 11px; margin-top: 2px; display: block;">
+            📚 <strong>Marking Scheme:</strong><br>
+            • State/Other: 1st Lang(125) + 5 subjects(100) = 625 total<br>
+            • CBSE: 6 subjects(100) = 600 total + CBSE grade calculation<br>
+            • ICSE: 6 subjects(100) = 600 total<br>
+            • <strong>CBSE Pass Criteria:</strong> 33% in each subject + grade higher than E
+        </small>
+    </div>
+    
+    <div class="form-group">
+        <label>Medium <span class="required">*</span></label>
+        <select id="academicMedium" required>
+            <option value="">Select Medium</option>
+            <option>English</option>
+            <option>Kannada</option>
+            <option>Other</option>
+        </select>
+    </div>
+</div>
+
+<!-- SSLC SUBJECT MARKS -->
+<div style="background: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #667eea;">
+    <div style="font-weight: bold; color: #333; margin-bottom: 15px;">📚 10th SSLC Subject Marks</div>
+    
+    <!-- 1st Language -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>1st Language <span class="required">*</span></label>
+            <select id="lang1Name" required>
+                <option value="">Select Language</option>
+                <option>Kannada</option>
+                <option>English</option>
+                <option>Sanskrit</option>
+                <option>Hindi</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="lang1MarksLabel">1st Language Marks (out of 125) <span class="required">*</span></label>
+            <input type="number" id="lang1Marks" placeholder="0" min="0" max="125" required>
+            <span class="error-message" id="lang1Marks-error">Marks must be between 0-125</span>
+        </div>
+    </div>
+    
+    <!-- 2nd Language -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>2nd Language <span class="required">*</span></label>
+            <select id="lang2Name" required>
+                <option value="">Select Language</option>
+                <option>Kannada</option>
+                <option>English</option>
+                <option>Hindi</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>2nd Language Marks (out of 100) <span class="required">*</span></label>
+            <input type="number" id="lang2Marks" placeholder="0" min="0" max="100" required>
+            <span class="error-message" id="lang2Marks-error">Marks must be between 0-100</span>
+        </div>
+    </div>
+    
+    <!-- 3rd Language -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>3rd Language <span class="required">*</span></label>
+            <select id="lang3Name" required>
+                <option value="">Select Language</option>
+                <option>Kannada</option>
+                <option>English</option>
+                <option>Hindi</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>3rd Language Marks (out of 100) <span class="required">*</span></label>
+            <input type="number" id="lang3Marks" placeholder="0" min="0" max="100" required>
+            <span class="error-message" id="lang3Marks-error">Marks must be between 0-100</span>
+        </div>
+    </div>
+    
+    <!-- Mathematics -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>Mathematics Marks (out of 100) <span class="required">*</span></label>
+            <input type="number" id="mathMarks" placeholder="0" min="0" max="100" required>
+            <span class="error-message" id="mathMarks-error">Marks must be between 0-100</span>
+        </div>
+        
+        <!-- Science -->
+        <div class="form-group">
+            <label>Science Marks (out of 100) <span class="required">*</span></label>
+            <input type="number" id="scienceMarks" placeholder="0" min="0" max="100" required>
+            <span class="error-message" id="scienceMarks-error">Marks must be between 0-100</span>
+        </div>
+    </div>
+    
+    <!-- Social Science -->
+    <div class="form-row">
+        <div class="form-group">
+            <label>Social Science Marks (out of 100) <span class="required">*</span></label>
+            <input type="number" id="socialScienceMarks" placeholder="0" min="0" max="100" required>
+            <span class="error-message" id="socialScienceMarks-error">Marks must be between 0-100</span>
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Total Marks <span class="required">*</span></label>
+        <input type="number" id="totalMarks" placeholder="Auto-calculated from SSLC" min="0" readonly required>
+        <small style="color: #666; font-size: 11px;">Auto-calculated: 125 + 100×5 = 625</small>
+    </div>
+    
+    <div class="form-group">
+        <label>Marks Obtained <span class="required">*</span></label>
+        <input type="number" id="marksObtained" placeholder="Auto-calculated from SSLC" min="0" readonly required>
+        <small style="color: #666; font-size: 11px;">Auto-calculated from SSLC marks</small>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Percentage <span class="required">*</span></label>
+        <input type="number" id="percentage" placeholder="Percentage" min="0" max="100" step="0.01" readonly required>
+    </div>
+    
+    <div class="form-group">
+        <label>Result <span class="required">*</span></label>
+        <select id="result" required>
+            <option value="">Select Result</option>
+            <option>Pass</option>
+            <option>Fail</option>
+            <option>Compartment</option>
+        </select>
+    </div>
+</div>
+
+<!-- Grade Display (shown for CBSE and Karnataka SSLC boards) -->
+<div class="form-row full" id="cbseGradeDisplay" style="display: none;">
+    <div class="form-group" style="background: #e8f5e9; padding: 15px; border-radius: 5px; border-left: 4px solid #4CAF50;">
+        <label id="cbseGradeLabel" style="color: #2e7d32; font-weight: bold;">Grade</label>
+        <div style="font-size: 18px; font-weight: bold; color: #2e7d32; margin-top: 5px;">
+            <span id="cbseGrade">-</span>
+        </div>
+        <small id="gradeDescription" style="color: #666; font-size: 11px;">
+            📊 Grading scale information
+        </small>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Upload Mark Sheet <span class="required">*</span></label>
+        <input type="file" id="marksheet" accept="image/*,.pdf" required>
+        <small style="color: #666; font-size: 12px;">Original or certified copy - JPG, PNG, or PDF</small>
+        <span class="error-message" id="marksheet-error">Please upload mark sheet</span>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Upload Student Photo <span class="required">*</span></label>
+        <input type="file" id="studentPhoto" accept="image/*" required>
+        <small style="color: #666; font-size: 12px;">Passport size photo (JPG or PNG) - 4x6 cm preferred</small>
+        <span class="error-message" id="studentPhoto-error">Please upload student photo</span>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label>Upload Transfer Certificate (TC) <span class="required">*</span></label>
+        <input type="file" id="transferCertificate" accept="image/*,.pdf" required>
+        <small style="color: #666; font-size: 12px;">TC from previous school - JPG, PNG, or PDF</small>
+        <span class="error-message" id="transferCertificate-error">Please upload transfer certificate</span>
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Next →</button>
+</div>
+</div>
+
+<!-- STEP 5: COURSE SELECTION -->
+<div class="step">
+<div class="form-title">Step 6: Course Selection</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label><b>First Language</b> <span class="required">*</span></label>
+        <select id="firstLanguage" required>
+            <option value="">Select First Language</option>
+            <option>Kannada</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label><b>Second Language</b> (English) </label>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label><b>Additional/Optional Courses</b></label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="courses" value="Communication Skills"> Communication Skills</label>
+            <label><input type="checkbox" name="courses" value="Tally"> Tally</label>
+            <label><input type="checkbox" name="courses" value="Computer Basics"> Computer Basics</label>
+            <label><input type="checkbox" name="courses" value="Accounting"> Accounting</label>
+        </div>
+    </div>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <label><b>Co-curricular/Sports Activities</b></label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" name="activities" value="Sports"> Sports</label>
+            <label><input type="checkbox" name="activities" value="NCC"> NCC</label>
+            <label><input type="checkbox" name="activities" value="NSS"> NSS</label>
+            <label><input type="checkbox" name="activities" value="Debate"> Debate</label>
+            <label><input type="checkbox" name="activities" value="Music"> Music</label>
+            <label><input type="checkbox" name="activities" value="Dance"> Dance</label>
+            <label><input type="checkbox" name="activities" value="Art"> Art</label>
+        </div>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="form-group">
+        <label>Language Exemption Required?</label>
+        <select id="languageExemption">
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+    
+    <div class="form-group">
+        <label>Physically Challenged?</label>
+        <select id="physicallyChallenged">
+            <option value="">Select</option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="button" class="btn-primary" data-action="next">Review & Submit →</button>
+</div>
+</div>
+
+<!-- STEP 6: REVIEW & SUBMIT -->
+<div class="step">
+<div class="form-title">Step 7: Review & Submit</div>
+
+<div style="background: #fff8e1; border-left: 4px solid #f0b429; padding: 16px; border-radius: 6px; margin-bottom: 20px; color: #5f4300;">
+    <h4 style="margin-bottom: 10px;">Final Instructions</h4>
+    <p style="margin-bottom: 8px; line-height: 1.6;">Please verify every detail before generating the final application PDF. The PDF will contain your admission information, selected courses, academic details, and all uploaded documents (Aadhaar, Marksheet, Transfer Certificate) embedded as images for clear visibility and verification.</p>
+    <p style="line-height: 1.6;">After clicking the final button, the form data will not be sent to any online backend. A PDF copy will be generated on this device for submission to the college office.</p>
+</div>
+
+<div id="reviewSummary" style="background: #f8f9fa; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+    <p style="text-align: center; color: #666;">Loading summary...</p>
+</div>
+
+<div class="form-row full">
+    <div class="form-group">
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="termsAgree" required> I declare that the information provided above is true and correct. I accept the college rules and regulations.</label>
+        </div>
+    </div>
+</div>
+
+<div class="buttons">
+    <button type="button" class="btn-secondary" data-action="back">← Back</button>
+    <button type="submit" class="btn-primary" id="submitBtn">Generate Final PDF</button>
+</div>
+</div>
+
+</form>
+
+<div class="success-message" id="successMessage">
+    ✓ Application PDF generated successfully!<br>
+    Your Admission Number: <strong id="admissionResult"></strong><br>
+    Keep the downloaded PDF for college submission.
+    <b>⚠️ Please bring the following documents when coming to the college:</b><br>
+    • Printed Application PDF<br>
+    • SSLC Marksheet (2copies) <br>
+    • Transfer Certificate (TC) (original +1 Xerox)<br>
+    • Caste Certificate  (original +1 Xerox)<br>
+    • Income Certificate (original +1 Xerox)<br>
+    • Bank PassBook(1 Xerox)<br>
+    • Parents Aadhaar Card(1 Xerox)<br>
+    • Student Aadhaar Card (2copies)<br>
+    • Passport Size Photos (4copies) <br>
+    <div style="margin-top: 20px;">
+        <a href="https://svpucollege.org" class="btn-primary" style="text-decoration: none; display: inline-block;">Go to Home Page</a>
+
+    </div>
+</div>
+
+<div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Generating your application PDF...</p>
+</div>
+
+</div>
+
+</div>
+
+<script src="app.js" defer></script>
+
+</body>
+</html>
